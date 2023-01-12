@@ -1,4 +1,4 @@
-# :computer: [react-shopping-mall (Demo)]()
+# :sparkles: [react-shopping-mall (Demo)]()
 
 <br/>
 
