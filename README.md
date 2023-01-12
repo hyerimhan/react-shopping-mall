@@ -1,14 +1,14 @@
-# [react-shopping-mall (Demo)]()
+# :computer: [react-shopping-mall (Demo)]()
 
 <br/>
 
-## 스택
+## :wrench: 스택
 
 <img src="https://img.shields.io/badge/React-61DAFB?style=flat-round&logo=React&logoColor=gray" /> <img src="https://img.shields.io/badge/React Router-CA4245?style=flat-round&logo=ReactRouter&logoColor=white"/> <img src="https://img.shields.io/badge/Firebase-FFCA28?style=flat-round&logo=Firebase&logoColor=white"/> <img src="https://img.shields.io/badge/Tailwind-06B6D4?style=flat-round&logo=TailwindCSS&logoColor=white"/>
 
 <br/>
 
-## 기능 구현 목록
+## :pushpin: 기능 구현 목록
 
 ### Header
 
