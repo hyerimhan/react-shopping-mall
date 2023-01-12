@@ -5,15 +5,15 @@ import { BsFillPencilFill } from "react-icons/bs";
 
 export default function Header() {
   return (
-    <header className="flex justify-between">
-      <Link to="/">
+    <header className="flex justify-between border-b border-gray-300 p-2">
+      <Link to="/" className="flex items-center text-4xl text-brand">
         <FiShoppingBag />
         <h1>Shoppy</h1>
       </Link>
-      <nav className="flex gap-5">
+      <nav className="flex items-center gap-4 font-semibold">
         <Link to="/products">products</Link>
         <Link to="/carts">carts</Link>
-        <Link to="/products/new">
+        <Link to="/products/new" className="text-2xl">
           <BsFillPencilFill />
         </Link>
         <button>Login</button>
