@@ -1,4 +1,5 @@
 import { initializeApp } from "firebase/app";
+// 로그인 연동
 import {
   getAuth,
   signInWithPopup,
@@ -6,6 +7,8 @@ import {
   signOut,
   onAuthStateChanged,
 } from "firebase/auth";
+// 관리자 권한
+import { getDatabase, ref, child, get } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -16,9 +19,9 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-
 const auth = getAuth();
 const provider = new GoogleAuthProvider();
+const database = getDatabase(app);
 
 // 로그인
 export function login() {
@@ -32,7 +35,23 @@ export function logout() {
 
 // 로그인 유지
 export function onUserStateChange(callback) {
-  onAuthStateChanged(auth, (user) => {
-    callback(user);
+  // 1. 사용자가 있는 경우 (로그인한 경우)
+  onAuthStateChanged(auth, async (user) => {
+    const updatedUser = user ? await adminUser(user) : null;
+    callback(updatedUser);
   });
+}
+
+async function adminUser(user) {
+  // 2. 관리자 권한을 가지고 있는지 확인
+  // 3. {...user, isAdmin: true/ false}
+  return get(ref(database, "admins")) //
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        const admins = snapshot.val();
+        const isAdmin = admins.includes(user.uid);
+        return { ...user, isAdmin };
+      }
+      return user;
+    });
 }
