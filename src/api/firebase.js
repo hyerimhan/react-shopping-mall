@@ -1,4 +1,5 @@
 import { initializeApp } from "firebase/app";
+import { v4 as uuid } from "uuid";
 // 로그인 연동
 import {
   getAuth,
@@ -8,7 +9,7 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 // 관리자 권한
-import { getDatabase, ref, child, get } from "firebase/database";
+import { getDatabase, ref, get, set } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -54,4 +55,16 @@ async function adminUser(user) {
       }
       return user;
     });
+}
+
+// 제품추가
+export async function addNewProduct(product, image) {
+  const id = uuid();
+  set(ref(database, `products/${id}`), {
+    ...product,
+    id,
+    price: parseInt(product.price),
+    image,
+    options: product.options.split(","),
+  });
 }
