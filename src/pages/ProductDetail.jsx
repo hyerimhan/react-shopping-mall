@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
+import { useAuthContext } from "../context/AuthContext";
 import Button from "../components/ui/Button";
+import { addOrUpdateToCart } from "../api/firebase";
 
 export default function ProductDetail() {
+  const { uid } = useAuthContext();
   const {
     state: {
       product: { id, image, title, description, category, price, options },
@@ -14,6 +17,8 @@ export default function ProductDetail() {
 
   const handleClick = (e) => {
     // 장바구니에 추가하기
+    const product = { id, image, title, price, option: selected, quantity: 1 };
+    addOrUpdateToCart(uid, product);
   };
 
   return (
@@ -23,7 +28,9 @@ export default function ProductDetail() {
         <img className="w-full px-4 basis-7/12" src={image} alt={title} />
         <div className="w-full basis-5/12 flex flex-col p-4">
           <h2 className="text-3xl font-bold py-2">{title}</h2>
-          <p className="text-2xl font-bold py-2 border-b border-gray-400">{`₩${price}`}</p>
+          <p className="text-2xl font-bold py-2 border-b border-gray-400">
+            {`₩${Number(price).toLocaleString()}`}
+          </p>
           <p className="py-4 text-lg">{description}</p>
           <div className="flex items-center">
             <label className="text-brand font-bold" htmlFor="select">
